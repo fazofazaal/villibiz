@@ -1,13 +1,43 @@
 import Head from "next/head";
-import {Flex, Heading, Center, Text, SimpleGrid} from "@chakra-ui/react";
-import BusinessCard from "../components/BusinessCard"
+import { useState } from "react";
+import {
+  Flex,
+  Heading,
+  Center,
+  Text,
+  SimpleGrid,
+  Button,
+} from "@chakra-ui/react";
+import BusinessCard from "../components/BusinessCard";
+import BusinessForm from "../components/BusinessForm";
+import { firestore } from "../utils/firebase";
 
-export default function Home() {
+// import { firestore, analytics } from "../utils/firebase";
 
-  const IMAGE = 'https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80';
-  
+export default function Home(props) {
+  const IMAGE =
+    "https://images.unsplash.com/photo-1518051870910-a46e30d9db16?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1350&q=80";
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [hasSubmitted, setHasSubmitted] = useState(false);
 
+  const addBusiness = (business) => {
+    setIsSubmitting(true);
+    firestore
+      .collection("businesses")
+      .doc()
+      .set(business)
+      .then(() => {
+        setIsSubmitting(false);
+        setHasSubmitted(true);
+        console.log("Document successfully written!");
+      })
+      .catch((error) => {
+        console.error("Error writing document: ", error);
+      });
+  };
+
+  console.log(props.businesses);
 
   return (
     <Flex direction="column" p="3">
@@ -22,15 +52,44 @@ export default function Home() {
           <Heading color="purple.500" as="h1" size="3xl" mb="2">
             Villibiz
           </Heading>
-          <Text fontSize="3xl">Villimalé Business Directory</Text>
+          <Text fontSize="2xl" mb="4">
+            Villimalé Business Directory
+          </Text>
+          <BusinessForm
+            onChange={addBusiness}
+            isSubmitting={isSubmitting}
+            hasSubmitted={hasSubmitted}
+          />
         </Flex>
       </Center>
 
-      <Center as="main" mt="16">
-        <SimpleGrid columns={[1, 2, 2, 3]} spacing={10}>
-        
+      <Center as="main" mt="8">
+        <SimpleGrid columns={[1, 2, 2, 3]} spacing={4}>
+          {
+            props.businesses && props.businesses.map(business => {
+              return (
+                <BusinessCard key={business.id} name={business.name} bio={business.bio} phone={business.phone} image={IMAGE} />
+              )
+            })
+          }
         </SimpleGrid>
       </Center>
     </Flex>
   );
+}
+
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  // const res = await fetch('https://.../posts')
+  // const posts = await res.json()
+  const snapshot = await firestore.collection("businesses").orderBy("name").get();
+  const businesses = snapshot.docs.map((doc) => ({id: doc.id, ...doc.data()}));
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      businesses,
+    },
+  };
 }
