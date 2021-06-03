@@ -72,16 +72,18 @@ export default function BusinessForm(props) {
     <>
       <Button
         leftIcon={<AddIcon />}
-        colorScheme="purple"
-        variant="outline"
+        colorScheme="green"
+        variant="solid"
+        borderRadius="3xl"
         onClick={onOpen}
+        boxShadow="md"
       >
-        Add new business
+        Add a business
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Add a new business</ModalHeader>
+          <ModalHeader>Add business information</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl isRequired>

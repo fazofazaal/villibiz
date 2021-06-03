@@ -24,9 +24,10 @@ export default function BusinessCard(props) {
     <Box
       maxW="sm"
       minW="sm"
-      borderWidth="1px"
-      borderRadius="lg"
+      borderRadius="2xl"
       overflow="hidden"
+      bgColor="white"
+      boxShadow="sm"
     >
       <Flex direction="row" p="3" w="100%">
         <ChakraImage
@@ -35,6 +36,7 @@ export default function BusinessCard(props) {
           alt={`Image of ${props.name}`}
           width={120}
           height={120}
+          borderRadius={'xl'}
         />
         {/* <Spacer /> */}
         <Flex direction="column" ml="6" w="100%">
