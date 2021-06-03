@@ -68,7 +68,7 @@ export default function Home(props) {
           {
             props.businesses && props.businesses.map(business => {
               return (
-                <BusinessCard key={business.id} name={business.name} bio={business.bio} phone={business.phone} image={IMAGE} />
+                <BusinessCard key={business.id} name={business.name} description={business.description} phone={business.phone} image={IMAGE} />
               )
             })
           }

@@ -28,7 +28,7 @@ export default function BusinessCard(props) {
       borderRadius="lg"
       overflow="hidden"
     >
-      <Flex direction="row" p="3">
+      <Flex direction="row" p="3" w="100%">
         <ChakraImage
           mr="4"
           src={props.image}
@@ -36,12 +36,12 @@ export default function BusinessCard(props) {
           width={120}
           height={120}
         />
-        <Spacer />
-        <Flex direction="column" ml="4">
+        {/* <Spacer /> */}
+        <Flex direction="column" ml="6" w="100%">
           <Heading as="h3" size="md">
             {props.name}
           </Heading>
-          <Text>{props.bio}</Text>
+          <Text>{props.description}</Text>
           <Spacer />
           <Flex direction="row">
             <Stack direction="row" spacing={3} ml="auto">
