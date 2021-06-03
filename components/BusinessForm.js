@@ -82,7 +82,7 @@ export default function BusinessForm(props) {
       </Button>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent>
+        <ModalContent borderRadius="3xl">
           <ModalHeader>Add business information</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>

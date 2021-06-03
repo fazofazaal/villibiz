@@ -25,6 +25,8 @@ export default function BusinessCard(props) {
       maxW="sm"
       minW="sm"
       borderRadius="2xl"
+      borderWidth="0.5px"
+      borderColor="gray.100"
       overflow="hidden"
       bgColor="white"
       boxShadow="sm"
