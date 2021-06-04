@@ -5,17 +5,18 @@ import {
   Heading,
   Text,
   Box,
-  Spacer,
-  Stack,
   IconButton,
   Link,
+  Stack,
+  VStack,
+  HStack,
 } from "@chakra-ui/react";
 import { PhoneIcon, ChatIcon } from "@chakra-ui/icons";
 import { FaViber } from "react-icons/fa";
 
 export default function BusinessCard(props) {
   const ChakraImage = chakra(Image, {
-    baseStyle: { maxH: 120, maxW: 120, rounded: "lg" },
+    baseStyle: { maxH: 120, maxW: 120, rounded: "xl" },
     shouldForwardProp: (prop) =>
       ["width", "height", "src", "alt"].includes(prop),
   });
@@ -31,58 +32,68 @@ export default function BusinessCard(props) {
       bgColor="white"
       boxShadow="sm"
     >
-      <Flex direction="row" p="3" w="100%">
+      <Stack direction="row" p="3" w="100%">
         <ChakraImage
           mr="4"
           src={props.image}
           alt={`Image of ${props.name}`}
           width={120}
           height={120}
-          borderRadius={'xl'}
+          borderRadius={"xl"}
         />
-        {/* <Spacer /> */}
-        <Flex direction="column" ml="6" w="100%">
+        <Stack direction="column" w="64%" pl={2}>
           <Heading as="h3" size="md">
             {props.name}
           </Heading>
-          <Text>{props.description}</Text>
-          <Spacer />
-          <Flex direction="row">
-            <Stack direction="row" spacing={3} ml="auto">
-              <Link
-                href={`viber://chat/?number=%2B960${props.phone}`}
-              >
-                <IconButton
-                  bg="purple.100"
-                  color="purple"
-                  aria-label="Message on Viber"
-                  icon={<FaViber />}
-                />
-              </Link>
-              <Link
-                href={`sms:+960${props.phone}`}
-              >
-                <IconButton
-                  bg="blue.100"
-                  color="blue"
-                  aria-label="Send SMS"
-                  icon={<ChatIcon />}
-                />
-              </Link>
-              <Link
-                href={`tel:+960${props.phone}`}
-              >
-                <IconButton
-                  bg="green.100"
-                  color="green"
-                  aria-label="Make a phone call"
-                  icon={<PhoneIcon />}
-                />
-              </Link>
-            </Stack>
-          </Flex>
-        </Flex>
-      </Flex>
+          <Text fontSize="sm" h="100%">
+            {/* {props.description} */}
+            This is a dummy business that helps users steal money from the
+          </Text>
+          <Stack direction="row" spacing="3" justifyContent="flex-end">
+            <Link href={`viber://chat/?number=%2B960${props.phone}`}>
+              <IconButton
+                bg="purple.100"
+                color="purple"
+                size="sm"
+                aria-label="Message on Viber"
+                icon={<FaViber />}
+              />
+            </Link>
+            <Link href={`sms:+960${props.phone}`}>
+              <IconButton
+                bg="blue.100"
+                color="blue"
+                size="sm"
+                aria-label="Send SMS"
+                icon={<ChatIcon />}
+              />
+            </Link>
+            <Link href={`tel:+960${props.phone}`}>
+              <IconButton
+                bg="green.100"
+                color="green"
+                size="sm"
+                aria-label="Make a phone call"
+                icon={<PhoneIcon />}
+              />
+            </Link>
+          </Stack>
+        </Stack>
+      </Stack>
     </Box>
   );
+}
+
+{
+  /* <VStack ml="6" w="60%">
+  <VStack align="flex-start">
+    <Heading as="h3" size="md">
+      {props.name}
+    </Heading>
+    <Text>{props.description}</Text>
+  </VStack>
+  <HStack mt={4} spacing={3} ml="auto">
+    
+  </HStack>
+</VStack>; */
 }

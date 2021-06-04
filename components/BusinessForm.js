@@ -80,7 +80,11 @@ export default function BusinessForm(props) {
       >
         Add a business
       </Button>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal 
+        isOpen={isOpen} 
+        onClose={onClose} 
+        scrollBehavior="outside"
+      >
         <ModalOverlay />
         <ModalContent borderRadius="3xl">
           <ModalHeader>Add business information</ModalHeader>
